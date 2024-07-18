@@ -11,7 +11,7 @@ import { Form } from "../ui/form";
 export enum FormFieldType {
   INPUT = "input",
   TEXTAREA = "textarea",
-  PHONE_INPUT = "checkbox",
+  PHONE_INPUT = "phoneInput",
   CHECKBOX = "checkbox",
   DATE_PICKER = "datePicker",
   SELECT = "select",
@@ -51,6 +51,22 @@ const PatientForm = () => {
           placeholder="Florence Nightingale"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
+        />
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          name="email"
+          label="Email"
+          placeholder="florenceNight@med.com"
+          iconSrc="/assets/icons/email.svg"
+          iconAlt="email"
+        />
+        <CustomFormField
+          fieldType={FormFieldType.PHONE_INPUT}
+          control={form.control}
+          name="phone"
+          label="Phone number"
+          placeholder="(800) 123-4567"
         />
         <Button type="submit">Submit</Button>
       </form>

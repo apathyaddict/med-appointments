@@ -11,7 +11,7 @@ const fontSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Care Book",
+  title: "Care Pulse",
   description: "A healthcare management system",
 };
 
@@ -22,6 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.ico" />
       <ThemeProvider attribute="class" defaultTheme="dark">
         <body
           className={cn(
