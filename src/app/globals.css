@@ -62,13 +62,13 @@
     @apply relative flex-1 overflow-y-auto px-[5%];
   }
 
-  .sub-container {
+  /* .sub-container {
     @apply mx-auto flex size-full flex-col py-10;
-  }
+  } */
 
-  .side-img {
+  /* .side-img {
     @apply hidden h-full object-cover md:block;
-  }
+  } */
 
   .copyright {
     @apply text-14-regular justify-items-end text-center text-dark-600 xl:text-left;
