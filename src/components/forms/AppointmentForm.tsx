@@ -1,28 +1,27 @@
 "use client";
+import React, { useState } from "react";
+
+import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-import { Form } from "../ui/form";
-import SubmitButton from "../SubmitButton";
-import { useState } from "react";
-import { UserFormValidation } from "@/lib/validation";
-import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
 import CustomFormField from "../CustomFormField";
+import { Form } from "../ui/form";
+import { FormFieldType } from "./PatientForm";
+import { UserFormValidation } from "@/lib/validation";
+import SubmitButton from "../SubmitButton";
+import { createUser } from "@/lib/actions/patient.actions";
+import { useRouter } from "next/navigation";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  DATE_PICKER = "datePicker",
-  SELECT = "select",
-  SKELETON = "skeleton",
-}
-
-const PatientForm = () => {
+export const AppointmentForm = ({
+  userId,
+  patientId,
+  type = "create",
+}: {
+  userId: string;
+  patientId: string;
+  type: "create" | "schedule" | "cancel";
+}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof UserFormValidation>>({
@@ -57,9 +56,10 @@ const PatientForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
         <section className="mb-12 space-y-4">
-          <h1 className="text-32-bold md:text-36-bold">Hi there 👋 </h1>
-          <p className="text-dark-700">Schedule your first appointement</p>
+          <h1 className="text-32-bold md:text-36-bold">New Appointment</h1>
+          <p className="text-dark-700">Request an appointment in 10 seconds.</p>
         </section>
+
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}
@@ -91,4 +91,4 @@ const PatientForm = () => {
   );
 };
 
-export default PatientForm;
+export default AppointmentForm;
