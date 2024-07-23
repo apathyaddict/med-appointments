@@ -15,7 +15,10 @@ import { useRouter } from "next/navigation";
 import { Doctors } from "../../../constants";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
-import { CreateAppointment } from "@/lib/actions/appointment.actions";
+import {
+  createAppointment,
+  CreateAppointment,
+} from "@/lib/actions/appointment.actions";
 
 export const AppointmentForm = ({
   userId,
@@ -64,7 +67,7 @@ export const AppointmentForm = ({
 
     try {
       if (type === "create" && patientId) {
-        const appointmentData = {
+        const appointment = {
           userId,
           patient: patientId,
           primaryPhysician: values.primaryPhysician,
@@ -73,7 +76,8 @@ export const AppointmentForm = ({
           status: status as Status,
           note: values.note,
         };
-        const newAppointment = await CreateAppointment(appointmentData);
+
+        const newAppointment = await createAppointment(appointment);
 
         if (newAppointment) {
           form.reset();

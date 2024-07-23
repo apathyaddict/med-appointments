@@ -9,16 +9,17 @@ import {
 import { ID, Query } from "node-appwrite";
 import { Appointment } from "../../../types/appwrite.types";
 
-export const CreateAppointment = async (
-  appoinment: CreateAppointmentParams
+export const createAppointment = async (
+  appointment: CreateAppointmentParams
 ) => {
   try {
     const newAppointment = await databases.createDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       ID.unique(),
-      appoinment
+      appointment
     );
+
     return parseStringify(newAppointment);
   } catch (error) {
     console.error();
@@ -37,14 +38,34 @@ export const getAppointment = async (appoinmentId: string) => {
     console.error();
   }
 };
-
 export const getRecentAppointmentList = async () => {
   try {
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
-      [Query.orderDesc("$createdAt")]
+      APPOINTMENT_COLLECTION_ID!
+      // [Query.orderDesc("$createdAt")]
     );
+
+    // const scheduledAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "scheduled");
+
+    // const pendingAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "pending");
+
+    // const cancelledAppointments = (
+    //   appointments.documents as Appointment[]
+    // ).filter((appointment) => appointment.status === "cancelled");
+
+    // const data = {
+    //   totalCount: appointments.total,
+    //   scheduledCount: scheduledAppointments.length,
+    //   pendingCount: pendingAppointments.length,
+    //   cancelledCount: cancelledAppointments.length,
+    //   documents: appointments.documents,
+    // };
+
     const initialCounts = {
       scheduledCount: 0,
       pendingCount: 0,
@@ -77,6 +98,9 @@ export const getRecentAppointmentList = async () => {
 
     return parseStringify(data);
   } catch (error) {
-    console.error();
+    console.error(
+      "An error occurred while retrieving the recent appointments:",
+      error
+    );
   }
 };
